@@ -1,0 +1,321 @@
+import { StyleSheet } from 'react-native';
+import { COLORS, FONT, SIZES, SHADOWS } from '../constants';
+
+const basicButton = {
+	justifyContent: 'center',
+	alignItems: 'center',
+	borderWidth: 1,
+	borderColor: COLORS.coolGray,
+	padding: SIZES.medium,
+	borderRadius: SIZES.small,
+};
+const basicButtonText = {
+	color: COLORS.coolGray,
+	fontFamily: FONT.regular,
+	fontSize: SIZES.medium,
+	textAlign: 'center',
+	verticalAlign: 'middle',
+};
+const primaryButton = {
+	...basicButton,
+	color: COLORS.white,
+	backgroundColor: COLORS.accent,
+	borderColor: COLORS.accent,
+};
+const primaryButtonText = {
+	...basicButtonText,
+	color: COLORS.white,
+};
+const dangerButton = {
+	...basicButton,
+	color: COLORS.errorDark,
+	backgroundColor: COLORS.errorLight,
+	borderColor: COLORS.errorDark,
+};
+const dangerButtonText = {
+	...basicButtonText,
+	color: COLORS.errorDark,
+};
+
+const styles = StyleSheet.create({
+	screen: {
+		flex: 1,
+		paddingTop: SIZES.medium,
+		backgroundColor: COLORS.mutedWhite,
+	},
+	header: {
+		backgroundColor: COLORS.lightWhite,
+	},
+	container: {
+		flex: 1,
+		flexDirection: 'row',
+		alignItems: 'stretch',
+		rowGap: SIZES.medium,
+		columnGap: SIZES.medium,
+		padding: SIZES.medium,
+	},
+	column: (flex = 1) => ({
+		flex: flex,
+		flexDirection: 'column',
+	}),
+	card: {
+		flexDirection: 'column',
+		padding: SIZES.medium,
+		backgroundColor: COLORS.white,
+		...SHADOWS.medium,
+		shadowColor: COLORS.coolGray,
+	},
+	text: {
+		fontFamily: FONT.regular,
+		fontSize: SIZES.medium,
+		color: COLORS.secondary,
+	},
+	mediumHeading: {
+		fontFamily: FONT.medium,
+		fontSize: SIZES.medium,
+		color: COLORS.secondary,
+	},
+	heading: {
+		fontFamily: FONT.bold,
+		fontSize: SIZES.large,
+		color: COLORS.secondary,
+	},
+	basicButton: { ...basicButton },
+	basicButtonText: { ...basicButtonText },
+	primaryButton: { ...primaryButton },
+	primaryButtonText: { ...primaryButtonText },
+	dangerButton: { ...dangerButton },
+	dangerButtonText: { ...dangerButtonText },
+	inputField: (isFocused = false) => ({
+		backgroundColor: COLORS.white,
+		color: COLORS.black,
+		fontFamily: FONT.regular,
+		fontSize: SIZES.medium,
+		verticalAlign: 'middle',
+		padding: SIZES.medium,
+		borderWidth: 1,
+		borderColor: isFocused ? COLORS.accent : COLORS.secondary,
+	}),
+	iconButton: {
+		width: SIZES.xxLarge,
+		height: SIZES.xxLarge,
+		backgroundColor: COLORS.white,
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	iconButtonImage: {
+		width: SIZES.xLarge,
+		height: SIZES.xLarge,
+	},
+	spacer: (height = 16) => ({
+		height: height,
+	}),
+	searchInput: {
+		padding: SIZES.xSmall,
+		backgroundColor: COLORS.white,
+		borderRadius: SIZES.small,
+		...SHADOWS.medium,
+	},
+	sectionWrapper: {
+		display: 'flex',
+		flexDirection: 'column',
+	},
+	sectionHeader: {
+		width: '100%',
+		maxWidth: '100%',
+		display: 'flex',
+		flexDirection: 'row',
+		flexWrap: 'nowrap',
+		marginBottom: SIZES.small,
+	},
+	sectionTitle: {
+		fontFamily: FONT.regular,
+		fontSize: SIZES.medium,
+		color: COLORS.secondary,
+		width: '50%',
+	},
+	sectionTitleAltWrapper: {
+		width: '100%',
+		maxWidth: '100%',
+		display: 'flex',
+		justifyContent: 'flex-end',
+	},
+	sectionTitleAlt: {
+		fontFamily: FONT.regular,
+		fontSize: SIZES.medium,
+		color: COLORS.secondary,
+		textAlign: 'right',
+		textDecorationLine: 'underline',
+		width: '50%',
+	},
+	resumeCardWrapper: {
+		display: 'flex',
+		flexDirection: 'column',
+		padding: SIZES.small,
+		backgroundColor: COLORS.white,
+		borderRadius: SIZES.small,
+		...SHADOWS.medium,
+		marginBottom: SIZES.small,
+	},
+	companyCardWrapper: {
+		display: 'flex',
+		flexDirection: 'column',
+		padding: SIZES.small,
+		backgroundColor: COLORS.white,
+		borderRadius: SIZES.small,
+		...SHADOWS.medium,
+		marginBottom: SIZES.small,
+	},
+	companyCardFullWrapper: {
+		display: 'flex',
+		flexDirection: 'row',
+		flexWrap: 'nowrap',
+		padding: SIZES.small,
+		backgroundColor: COLORS.white,
+		borderRadius: SIZES.small,
+		...SHADOWS.medium,
+		marginBottom: SIZES.small,
+	},
+	cardImage: {
+		width: 100,
+		height: 100,
+		backgroundColor: COLORS.white,
+		borderRadius: SIZES.small,
+	},
+	cardFullImageWrapper: {
+		marginRight: SIZES.small,
+	},
+	cardFullDetailsWrapper: {
+		flexShrink: 1,
+	},
+	cardTitle: {
+		fontFamily: FONT.bold,
+		fontSize: SIZES.medium,
+		color: COLORS.secondary,
+	},
+	cardSubTitle: {
+		fontFamily: FONT.regular,
+		fontSize: SIZES.small,
+		color: COLORS.coolGray,
+	},
+	cardFullDescription: {
+		fontFamily: FONT.regular,
+		fontSize: SIZES.small,
+		color: COLORS.frenchGray,
+	},
+	textInputField: {
+		fontFamily: FONT.regular,
+		fontSize: SIZES.medium,
+		color: COLORS.coolGray,
+		borderWidth: 1,
+		borderColor: COLORS.coolGray,
+		padding: SIZES.small,
+		borderRadius: SIZES.small,
+	},
+	validationError: {
+		fontFamily: FONT.regular,
+		fontSize: SIZES.medium,
+		color: COLORS.errorDark,
+		backgroundColor: COLORS.errorLight,
+		padding: SIZES.xSmall,
+		marginTop: SIZES.xSmall,
+		marginBottom: SIZES.xSmall,
+		borderRadius: SIZES.xSmall,
+	},
+	fullWidthLink: {
+		borderWidth: 1,
+		borderColor: COLORS.coolGray,
+		borderRadius: SIZES.xSmall,
+		padding: SIZES.medium,
+		marginBottom: 10,
+		width: '100%',
+		maxWidth: '100%',
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+	},
+	fullWidthLinkTextWrapper: {
+		flexGrow: 1,
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+	},
+	fullWidthLinkText: {
+		fontFamily: FONT.regular,
+		fontSize: SIZES.medium,
+		lineHeight: SIZES.medium,
+	},
+	fullWidthLinkIconWrapper: {},
+	fullWidthLinkIcon: {
+		width: SIZES.xLarge,
+		height: SIZES.xLarge,
+	},
+	linkText: (textAlign = 'left') => ({
+		fontFamily: FONT.regular,
+		fontSize: SIZES.medium,
+		color: COLORS.coolGray,
+		backgroundColor: COLORS.errorLight,
+		textAlign: textAlign,
+		textDecorationLine: 'underline',
+	}),
+	screenHeading: {
+		fontFamily: FONT.bold,
+		fontSize: SIZES.xLarge,
+		color: COLORS.black,
+	},
+	staticCardWrapper: {
+		display: 'flex',
+		flexDirection: 'column',
+		padding: SIZES.small,
+		backgroundColor: COLORS.white,
+		borderRadius: SIZES.small,
+		marginBottom: SIZES.small,
+	},
+	dataTableWrapper: {
+		display: 'flex',
+		flexDirection: 'column',
+		padding: SIZES.small,
+		backgroundColor: COLORS.white,
+		borderRadius: SIZES.small,
+		marginBottom: SIZES.small,
+	},
+	dataTableRow: (length, index) => ({
+		display: 'flex',
+		flexDirection: 'row',
+		flexWrap: 'nowrap',
+		marginBottom: index + 1 !== length ? 10 : 0,
+	}),
+	dataTableItem: {
+		width: '50%',
+	},
+	dataTableItemLabel: {
+		fontFamily: FONT.bold,
+		color: COLORS.black,
+	},
+	dataTableItemValue: {
+		fontFamily: FONT.regular,
+		color: COLORS.secondary,
+	},
+	dropDownWrapper: {
+		width: '100%',
+		fontFamily: FONT.regular,
+		fontSize: SIZES.medium,
+		borderWidth: 1,
+		borderColor: COLORS.coolGray,
+		backgroundColor: COLORS.mutedWhite,
+		color: COLORS.black,
+		textAlign: 'left',
+		borderRadius: SIZES.small,
+	},
+	dropDownText: {
+		backgroundColor: 'transparent',
+		color: COLORS.secondary,
+		fontFamily: FONT.regular,
+		fontSize: SIZES.medium,
+		textAlign: 'left',
+	},
+});
+
+export default styles;
