@@ -2,23 +2,20 @@ import { Text, View } from 'react-native';
 import { IconButton, Spacers } from '../../components';
 import styles from '../../styles';
 import { ICONS } from '../../constants';
-import { useRouter } from 'expo-router';
+import { dateFormat } from '../../utils';
 
-const ExperienceEditCardFull = (item) => {
-	const router = useRouter();
-	const designation = item.designation || 'Developer';
-	const companyTitle = item.companyTitle || 'Syndior PVT LTD';
-	const description = item.description || 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam, reprehenderit.';
-	const startDate = item.startDate || 'Jan, 2023';
-	const endDate = item.endDate || 'Jan, 2023';
+const ExperienceEditCardFull = ({ item, onButtonPress }) => {
+	const company = item?.company?.title || 'N/A';
+	const designation = item.designation || 'N/A';
+	const startDate = dateFormat(item.startDate) || null;
+	const endDate = dateFormat(item.endDate) || null;
+	const description = item.description || null;
+	const stillEmployed = item.stillEmployed || false;
+	const isVerified = item.isVerified || false;
 	const editItem = () => {
-		router.push({
-			pathname: '/profile/resumes/[id]/work-experience/[itemId]/update',
-			params: {
-				id: 12,
-				itemId: 34,
-			},
-		});
+		if (onButtonPress) {
+			onButtonPress();
+		}
 	};
 	return (
 		<View style={{ ...styles.staticCardWrapper, display: 'flex', flexDirection: 'row', flexWrap: 'nowrap' }}>
@@ -28,7 +25,7 @@ const ExperienceEditCardFull = (item) => {
 				</Text>
 				<Spacers height={5} />
 				<Text numberOfLines={1} style={styles.cardSubTitle}>
-					{companyTitle}
+					{company}
 				</Text>
 				<Spacers height={5} />
 				{startDate && endDate ? (

@@ -25,7 +25,7 @@ const LoginForm = () => {
 	const onSubmit = ({ email, password }) => {
 		let loginStatus = authService.setLogin(email, password);
 		if (loginStatus) {
-			router.replace('/profile');
+			router.replace('/home');
 		}
 	};
 

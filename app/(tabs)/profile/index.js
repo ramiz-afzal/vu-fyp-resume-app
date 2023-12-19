@@ -129,18 +129,27 @@ export default () => {
 
 	const doLogout = async () => {
 		await authService.setLogout();
+		setUser({});
 		setLoginStatus(false);
 		setLoginCheck(false);
 		setResumeExists(false);
 		setResumeCheck(false);
 		setCompanyExists(false);
 		setCompanyCheck(false);
+		router.push('/home');
 	};
 	let myResumeURL = resumeExists ? `/profile/resumes/${resumeId}/update-resume` : '/profile/resumes/create-resume';
 	let myCompanyURL = companyExists ? `/profile/companies/${companyId}/update-company` : '/profile/companies/create-company';
 	return (
 		<SafeAreaView style={styles.screen}>
-			{[loginCheck, resumeCheck, companyCheck].includes(false) ? (
+			<Text>loginCheck: {JSON.stringify(loginCheck)}</Text>
+			<Text>resumeCheck: {JSON.stringify(resumeCheck)}</Text>
+			<Text>companyCheck: {JSON.stringify(companyCheck)}</Text>
+			<Text>resumeExists: {JSON.stringify(resumeExists)}</Text>
+			<Text>companyExists: {JSON.stringify(companyExists)}</Text>
+			<Text>hasRoleId(user, 2): {JSON.stringify(hasRoleId(user, 2))}</Text>
+			<Text>hasRoleId(user, 3): {JSON.stringify(hasRoleId(user, 3))}</Text>
+			{[loginCheck].includes(false) ? (
 				<ActivityIndicator size="large" color={COLORS.accent} />
 			) : (
 				<Container>

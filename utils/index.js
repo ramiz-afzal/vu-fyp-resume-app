@@ -15,3 +15,10 @@ export const profileImageSource = (sourceURL) => {
 export const companyImageSource = (sourceURL) => {
 	return isValidImage(sourceURL) ? sourceURL : IMAGES.companyPlaceholder;
 };
+export const dateFormat = (dateString) => {
+	if (dateString) {
+		const dateObject = new Date(Date.parse(dateString));
+		return dateObject.toDateString();
+	}
+	return '';
+};

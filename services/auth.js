@@ -18,7 +18,7 @@ const authService = {
 	isAuthTokenValid: async function () {
 		let isAuthTokenValid = false;
 		try {
-			let authToken = await authService.getBearerToken();
+			const authToken = await getValue('accessToken');
 			if (!authToken) {
 				return false;
 			}
@@ -36,7 +36,18 @@ const authService = {
 		if (!token) {
 			return false;
 		}
-		return token;
+
+		const isAuthTokenValid = await authService.isAuthTokenValid();
+		if (isAuthTokenValid) {
+			return token;
+		}
+
+		const refreshAuthToken = await authService.refreshAuthToken();
+		if (refreshAuthToken) {
+			return await getValue('accessToken');
+		}
+
+		return false;
 	},
 	getRefreshToken: async function () {
 		const token = await getValue('refreshToken');
@@ -66,30 +77,48 @@ const authService = {
 		if (!email || !password) {
 			return false;
 		}
-		axios
-			.post('/auth/login', {
-				email: email,
-				password: password,
-			})
-			.then(async (response) => {
-				if (!response.data.accessToken || !response.data.refreshToken) {
-					return false;
-				}
+		try {
+			const response = await axios.post('/auth/login', { email: email, password: password });
+			if (response && response.data.accessToken && response.data.refreshToken) {
 				await setValue('accessToken', response.data.accessToken);
 				await setValue('refreshToken', response.data.refreshToken);
 				await setValue('user', JSON.stringify(response.data.user));
 				return true;
-			})
-			.catch((error) => {
-				console.log(error);
-				return false;
-			});
+			}
+		} catch (error) {
+			console.log(error);
+		}
+		return false;
 	},
 	setLogout: async function () {
-		await setValue('accessToken', '');
-		await setValue('refreshToken', '');
-		await setValue('user', '');
-		return true;
+		try {
+			const isLoggedIn = await authService.isLoggedIn();
+			if (!isLoggedIn) {
+				return true;
+			}
+
+			const refreshToken = await getValue('refreshToken');
+			const token = await authService.getBearerToken();
+			const response = await axios.post(
+				'/auth/logout',
+				{ refreshToken: refreshToken },
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				}
+			);
+			if (response && response.status == 200) {
+				await setValue('accessToken', '');
+				await setValue('refreshToken', '');
+				await setValue('user', '');
+				return true;
+			}
+		} catch (error) {
+			console.log(error);
+			console.log(error.message);
+		}
+		return false;
 	},
 };
 

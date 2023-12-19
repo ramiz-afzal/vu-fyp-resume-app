@@ -4,6 +4,8 @@ import SelectDropdown from 'react-native-select-dropdown';
 import { Container, Column, AppButton, Spacers, DateTimePickerField } from '../../../../components';
 import styles from '../../../../styles';
 import React from 'react';
+import authService from '../../../../services/auth';
+import axios from '../../../../services/axios';
 
 import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
@@ -54,14 +56,47 @@ const CreateResume = () => {
 	} = useForm({
 		resolver: yupResolver(schema),
 	});
-	const onSubmit = (data) => {
-		console.log(data);
-		router.push({
-			pathname: '/resumes/[id]/update-resume',
-			params: {
-				id: 123,
-			},
-		});
+	const onSubmit = async (data) => {
+		let requestParams = {};
+		requestParams.firstName = data?.firstName || null;
+		requestParams.lastName = data?.lastName || null;
+		requestParams.biography = data?.biography || null;
+		requestParams.designation = data?.designation || null;
+		requestParams.phone = data?.phone || null;
+		requestParams.gender = data?.gender || null;
+		requestParams.dob = data?.dob || null;
+		requestParams.religion = data?.religion || null;
+		requestParams.martialStatus = data?.martialStatus || null;
+		requestParams.address_1 = data?.address_1 || null;
+		requestParams.address_2 = data?.address_2 || null;
+		requestParams.city = data?.city || null;
+		requestParams.state = data?.state || null;
+		requestParams.country = data?.country || null;
+		console.log(requestParams);
+		try {
+			const token = await authService.getBearerToken();
+			const response = await axios.post(
+				'/resume',
+				{ ...requestParams },
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				}
+			);
+			if (response && response.status == 200 && response.data.resume) {
+				router.push({
+					pathname: '/resumes/[id]/update-resume',
+					params: {
+						id: response.data.resume.id,
+					},
+				});
+			}
+		} catch (error) {
+			console.log(error);
+			console.log(error.message);
+			alert('Something went wrong.');
+		}
 	};
 	return (
 		<SafeAreaView style={styles.screen}>

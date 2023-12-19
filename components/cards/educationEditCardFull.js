@@ -2,33 +2,29 @@ import { Text, View } from 'react-native';
 import { IconButton, Spacers } from '../../components';
 import styles from '../../styles';
 import { ICONS } from '../../constants';
-import { useRouter } from 'expo-router';
+import { dateFormat } from '../../utils';
 
-const EducationEditCardFull = (item) => {
-	const router = useRouter();
-	const degreeTitle = item.degreeTitle || 'Degree Title';
-	const instituteTitle = item.instituteTitle || 'School or Collage';
-	const description = item.description || 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam, reprehenderit.';
-	const startDate = item.startDate || 'Jan, 2023';
-	const endDate = item.endDate || 'Jan, 2023';
+const EducationEditCardFull = ({ item, onButtonPress }) => {
+	const inProcess = item.inProcess || false;
+	const institute = item.institute || 'N/A';
+	const degree = item.degree || 'N/A';
+	const description = item.description || 'N/A';
+	const startDate = dateFormat(item.startDate) || null;
+	const endDate = dateFormat(item.endDate) || null;
 	const editItem = () => {
-		router.push({
-			pathname: '/profile/resumes/[id]/education/[itemId]/update',
-			params: {
-				id: 12,
-				itemId: 34,
-			},
-		});
+		if (onButtonPress) {
+			onButtonPress();
+		}
 	};
 	return (
 		<View style={{ ...styles.staticCardWrapper, display: 'flex', flexDirection: 'row', flexWrap: 'nowrap' }}>
 			<View style={{ width: '80%', marginRight: 10 }}>
 				<Text numberOfLines={1} style={styles.cardTitle}>
-					{degreeTitle}
+					{degree}
 				</Text>
 				<Spacers height={5} />
 				<Text numberOfLines={1} style={styles.cardSubTitle}>
-					{instituteTitle}
+					{institute}
 				</Text>
 				<Spacers height={5} />
 				{startDate && endDate ? (
