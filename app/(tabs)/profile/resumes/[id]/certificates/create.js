@@ -42,7 +42,7 @@ const CreateCertificate = () => {
 			);
 			if (response && response.status == 200 && response.data.certificate) {
 				alert('Certificate Added!');
-				router.back();
+				router.replace(`/profile/resumes/${params.id}/update-resume`);
 			}
 		} catch (error) {
 			console.log(error);

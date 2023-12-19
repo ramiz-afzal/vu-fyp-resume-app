@@ -30,14 +30,14 @@ const ExperienceEditCardFull = ({ item, onButtonPress }) => {
 				<Spacers height={5} />
 				{startDate && endDate ? (
 					<>
-						<Text style={styles.text}>
+						<Text style={styles.cardSubTitle}>
 							From: {startDate} To: {endDate}
 						</Text>
 						<Spacers height={5} />
 					</>
 				) : startDate ? (
 					<>
-						<Text style={styles.text}>From: {startDate} Till date</Text>
+						<Text style={styles.cardSubTitle}>From: {startDate} Till date</Text>
 						<Spacers height={5} />
 					</>
 				) : null}

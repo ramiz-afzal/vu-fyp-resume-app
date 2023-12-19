@@ -1,11 +1,74 @@
-import { SafeAreaView } from 'react-native';
+import { Platform, SafeAreaView } from 'react-native';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import React from 'react';
 import { ImagePicker, Container, Column } from '../../../../../components';
 import styles from '../../../../../styles';
+import authService from '../../../../../services/auth';
+import axios from '../../../../../services/axios';
 
 const UpdateProfileImage = () => {
-	const onImageSelect = (result) => {
-		console.log(result);
+	const params = useLocalSearchParams();
+	const router = useRouter();
+	const onImageSelect = async (file) => {
+		if (!file) {
+			alert('Something went wrong');
+			return;
+		}
+
+		let formData = new FormData();
+		formData.append('file', {
+			name: file.name,
+			type: file.mimeType,
+			uri: Platform.OS === 'ios' ? file.uri.replace('file://', '') : file.uri,
+		});
+		try {
+			const token = await authService.getBearerToken();
+			const response = await axios.post(`/file`, formData, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+					'Content-Type': 'multipart/form-data',
+				},
+			});
+			if (response && response.status == 200 && response.data.file) {
+				let fileId = response.data.file.id;
+
+				// delete old profile image
+				(async function () {
+					let imageId = params.oldImageId;
+					if (imageId) {
+						const token = await authService.getBearerToken();
+						await axios.delete(`/file/${imageId}`, {
+							headers: {
+								Authorization: `Bearer ${token}`,
+							},
+						});
+					}
+				})();
+
+				// update resume
+				(async function () {
+					let requestParams = {};
+					requestParams.imageId = fileId;
+					const token = await authService.getBearerToken();
+					await axios.patch(
+						`/resume/${params.id}`,
+						{ body: requestParams },
+						{
+							headers: {
+								Authorization: `Bearer ${token}`,
+							},
+						}
+					);
+				})();
+
+				alert('Image Updated');
+				router.replace(`/profile/resumes/${params.id}/update-resume`);
+			}
+		} catch (error) {
+			console.log(error.message);
+			console.log(error.response.data);
+			alert('Something went wrong.');
+		}
 	};
 	return (
 		<SafeAreaView style={styles.screen}>

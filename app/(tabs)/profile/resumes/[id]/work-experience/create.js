@@ -88,7 +88,7 @@ const CreateWorkExperience = () => {
 			);
 			if (response && response.status == 200 && response.data.experience) {
 				alert('Work Experience Added!');
-				router.back();
+				router.replace(`/profile/resumes/${params.id}/update-resume`);
 			}
 		} catch (error) {
 			console.log(error);

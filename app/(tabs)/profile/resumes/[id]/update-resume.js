@@ -4,7 +4,7 @@ import { Container, Column, AppButton, Spacers, DateTimePickerField, ExperienceE
 import styles from '../../../../../styles';
 import { COLORS } from '../../../../../constants';
 import { profileImageSource } from '../../../../../utils';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
@@ -14,13 +14,9 @@ import authService from '../../../../../services/auth';
 import axios from '../../../../../services/axios';
 
 const UpdateResume = () => {
-	const scrollView = useRef();
 	const [resume, setResume] = useState({});
 	const [resumeLoaded, setResumeLoaded] = useState(false);
-	const profileImage = null;
-	const resumeExperiences = [1, 2, 3, 4];
-	const resumeEducations = [1, 2, 3, 4];
-	const resumeCertificates = [1, 2, 3, 4];
+	const profileImage = resumeLoaded && resume.image ? resume.image.path : null;
 	const router = useRouter();
 	const params = useLocalSearchParams();
 
@@ -89,6 +85,15 @@ const UpdateResume = () => {
 			},
 		});
 	};
+	const editWorkExperience = (itemId) => {
+		router.push({
+			pathname: '/profile/resumes/[id]/work-experience/[itemId]/update',
+			params: {
+				id: resume.id,
+				itemId: itemId,
+			},
+		});
+	};
 	const addNewEducation = () => {
 		router.push({
 			pathname: '/profile/resumes/[id]/education/create',
@@ -97,11 +102,29 @@ const UpdateResume = () => {
 			},
 		});
 	};
+	const editEducation = (itemId) => {
+		router.push({
+			pathname: '/profile/resumes/[id]/education/[itemId]/update',
+			params: {
+				id: resume.id,
+				itemId: itemId,
+			},
+		});
+	};
 	const addNewCertificate = () => {
 		router.push({
 			pathname: '/profile/resumes/[id]/certificates/create',
 			params: {
 				id: resume.id,
+			},
+		});
+	};
+	const editCertificate = (itemId) => {
+		router.push({
+			pathname: '/profile/resumes/[id]/certificates/[itemId]/update',
+			params: {
+				id: resume.id,
+				itemId: itemId,
 			},
 		});
 	};
@@ -190,12 +213,13 @@ const UpdateResume = () => {
 			pathname: '/profile/resumes/[id]/profile-image',
 			params: {
 				id: resume.id,
+				oldImageId: resume?.image?.id || null,
 			},
 		});
 	};
 	return (
 		<SafeAreaView style={styles.screen}>
-			<ScrollView ref={scrollView}>
+			<ScrollView>
 				{!resumeLoaded ? (
 					<ActivityIndicator size={'large'} color={COLORS.accent} />
 				) : (
@@ -316,21 +340,21 @@ const UpdateResume = () => {
 								<Spacers height={30} />
 								<Text style={styles.heading}>Work Experience</Text>
 								<Spacers />
-								{resume.experience.length ? resume.experience.map((item, index) => <ExperienceEditCardFull item={item} key={index} />) : <Text>No Work Experiences have been added yet</Text>}
+								{resume.experience.length ? resume.experience.map((item, index) => <ExperienceEditCardFull item={item} key={index} onButtonPress={() => editWorkExperience(item.id)} />) : <Text>No Work Experiences have been added yet</Text>}
 								<AppButton label="Add New" onPress={addNewWorkExperience} />
 								<Spacers />
 
 								<Spacers height={30} />
 								<Text style={styles.heading}>Education</Text>
 								<Spacers />
-								{resume.education.length ? resume.education.map((item, index) => <EducationEditCardFull item={item} key={index} />) : <Text>No Education Items have been added yet</Text>}
+								{resume.education.length ? resume.education.map((item, index) => <EducationEditCardFull item={item} key={index} onButtonPress={() => editEducation(item.id)} />) : <Text>No Education Items have been added yet</Text>}
 								<AppButton label="Add New" onPress={addNewEducation} />
 								<Spacers />
 
 								<Spacers height={30} />
 								<Text style={styles.heading}>Certificates</Text>
 								<Spacers />
-								{resume.certification.length ? resume.certification.map((item, index) => <CertificateEditCardFull item={item} key={index} />) : <Text>No Certifications have been added yet</Text>}
+								{resume.certification.length ? resume.certification.map((item, index) => <CertificateEditCardFull item={item} key={index} onButtonPress={() => editCertificate(item.id)} />) : <Text>No Certifications have been added yet</Text>}
 								<AppButton label="Add New" onPress={addNewCertificate} />
 								<Spacers height={50} />
 								<AppButton label="Save Changes" type="primary" onPress={handleSubmit(onSubmit)} />

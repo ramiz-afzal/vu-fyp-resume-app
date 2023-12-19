@@ -12,7 +12,6 @@ const ImagePicker = ({ onChange }) => {
 	const openFilePicker = async () => {
 		try {
 			const result = await DocumentPicker.getDocumentAsync({ type: 'image/*' });
-			console.log(result);
 			if (result.canceled === false && result.assets.length > 0) {
 				const selectedFile = result.assets[0];
 				setImage(selectedFile.uri);

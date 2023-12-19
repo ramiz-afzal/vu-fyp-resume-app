@@ -1,4 +1,4 @@
-import { IMAGES } from '../constants';
+import { IMAGES, ASSETS_BASE_URL } from '../constants';
 export const isValidImage = (sourceURL) => {
 	if (!sourceURL) {
 		return false;
@@ -10,7 +10,7 @@ export const defaultImageSource = (sourceURL) => {
 	return isValidImage(sourceURL) ? sourceURL : IMAGES.defaultPlaceholder;
 };
 export const profileImageSource = (sourceURL) => {
-	return isValidImage(sourceURL) ? sourceURL : IMAGES.profilePlaceholder;
+	return isValidImage(sourceURL) ? sourceURL : isValidImage(`${ASSETS_BASE_URL}${sourceURL}`) ? { uri: `${ASSETS_BASE_URL}${sourceURL}` } : IMAGES.profilePlaceholder;
 };
 export const companyImageSource = (sourceURL) => {
 	return isValidImage(sourceURL) ? sourceURL : IMAGES.companyPlaceholder;

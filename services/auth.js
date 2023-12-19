@@ -28,6 +28,7 @@ const authService = {
 			}
 		} catch (error) {
 			console.log(error);
+			console.log(error.response.data);
 		}
 		return isAuthTokenValid;
 	},
@@ -70,6 +71,7 @@ const authService = {
 			}
 		} catch (error) {
 			console.log(error);
+			console.log(error.response.data);
 		}
 		return status;
 	},
@@ -87,6 +89,7 @@ const authService = {
 			}
 		} catch (error) {
 			console.log(error);
+			console.log(error.response.data);
 		}
 		return false;
 	},
@@ -116,7 +119,7 @@ const authService = {
 			}
 		} catch (error) {
 			console.log(error);
-			console.log(error.message);
+			console.log(error.response.data);
 		}
 		return false;
 	},
