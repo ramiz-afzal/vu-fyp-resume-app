@@ -78,7 +78,6 @@ const CreateEducation = () => {
 				<Container>
 					<Column>
 						<View>
-							<Text>params.id: {params.id}</Text>
 							<Controller control={control} render={({ field: { onChange, onBlur, value } }) => <TextInput style={styles.textInputField} placeholder="Institute" onBlur={onBlur} onChangeText={onChange} value={value} />} name="institute" />
 							{errors.institute && errors.institute.message && <Text style={styles.validationError}>{errors.institute.message}</Text>}
 							<Spacers />

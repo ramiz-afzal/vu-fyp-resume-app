@@ -340,21 +340,21 @@ const UpdateResume = () => {
 								<Spacers height={30} />
 								<Text style={styles.heading}>Work Experience</Text>
 								<Spacers />
-								{resume.experience.length ? resume.experience.map((item, index) => <ExperienceEditCardFull item={item} key={index} onButtonPress={() => editWorkExperience(item.id)} />) : <Text>No Work Experiences have been added yet</Text>}
+								{resume.experience && resume.experience.length ? resume.experience.map((item, index) => <ExperienceEditCardFull item={item} key={index} onButtonPress={() => editWorkExperience(item.id)} />) : <Text style={{ paddingBottom: 20 }}>No Work Experiences have been added yet</Text>}
 								<AppButton label="Add New" onPress={addNewWorkExperience} />
 								<Spacers />
 
 								<Spacers height={30} />
 								<Text style={styles.heading}>Education</Text>
 								<Spacers />
-								{resume.education.length ? resume.education.map((item, index) => <EducationEditCardFull item={item} key={index} onButtonPress={() => editEducation(item.id)} />) : <Text>No Education Items have been added yet</Text>}
+								{resume.education && resume.education.length ? resume.education.map((item, index) => <EducationEditCardFull item={item} key={index} onButtonPress={() => editEducation(item.id)} />) : <Text style={{ paddingBottom: 20 }}>No Education Items have been added yet</Text>}
 								<AppButton label="Add New" onPress={addNewEducation} />
 								<Spacers />
 
 								<Spacers height={30} />
 								<Text style={styles.heading}>Certificates</Text>
 								<Spacers />
-								{resume.certification.length ? resume.certification.map((item, index) => <CertificateEditCardFull item={item} key={index} onButtonPress={() => editCertificate(item.id)} />) : <Text>No Certifications have been added yet</Text>}
+								{resume.certification && resume.certification.length ? resume.certification.map((item, index) => <CertificateEditCardFull item={item} key={index} onButtonPress={() => editCertificate(item.id)} />) : <Text style={{ paddingBottom: 20 }}>No Certifications have been added yet</Text>}
 								<AppButton label="Add New" onPress={addNewCertificate} />
 								<Spacers height={50} />
 								<AppButton label="Save Changes" type="primary" onPress={handleSubmit(onSubmit)} />

@@ -13,7 +13,7 @@ export const profileImageSource = (sourceURL) => {
 	return isValidImage(sourceURL) ? sourceURL : isValidImage(`${ASSETS_BASE_URL}${sourceURL}`) ? { uri: `${ASSETS_BASE_URL}${sourceURL}` } : IMAGES.profilePlaceholder;
 };
 export const companyImageSource = (sourceURL) => {
-	return isValidImage(sourceURL) ? sourceURL : IMAGES.companyPlaceholder;
+	return isValidImage(sourceURL) ? sourceURL : isValidImage(`${ASSETS_BASE_URL}${sourceURL}`) ? { uri: `${ASSETS_BASE_URL}${sourceURL}` } : IMAGES.companyPlaceholder;
 };
 export const dateFormat = (dateString) => {
 	if (dateString) {

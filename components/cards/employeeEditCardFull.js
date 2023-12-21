@@ -2,21 +2,15 @@ import { Text, View } from 'react-native';
 import { IconButton, Spacers } from '../../components';
 import styles from '../../styles';
 import { ICONS } from '../../constants';
-import { useRouter } from 'expo-router';
 
-const EmployeeEditCardFull = (item) => {
-	const router = useRouter();
+const EmployeeEditCardFull = ({ item, onButtonPress }) => {
 	const fullName = item.fullName || 'N/A';
-	const designation = item.designation || 'No designation provided';
-	const description = item.description || 'No description provided';
+	const designation = item.designation || 'N/A';
+	const description = item.description || 'N/A';
 	const editItem = () => {
-		router.push({
-			pathname: '/profile/companies/[id]/employees/[itemId]/update',
-			params: {
-				id: 12,
-				itemId: 34,
-			},
-		});
+		if (onButtonPress) {
+			onButtonPress();
+		}
 	};
 	return (
 		<View style={{ ...styles.staticCardWrapper, display: 'flex', flexDirection: 'row', flexWrap: 'nowrap' }}>

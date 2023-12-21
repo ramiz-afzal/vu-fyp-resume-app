@@ -2,20 +2,14 @@ import { Text, View } from 'react-native';
 import { IconButton, Spacers } from '../../components';
 import styles from '../../styles';
 import { ICONS } from '../../constants';
-import { useRouter } from 'expo-router';
 
-const ServiceEditCardFull = (item) => {
-	const router = useRouter();
-	const title = item.title || 'Service Title';
-	const description = item.description || 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam, reprehenderit.';
+const ServiceEditCardFull = ({ item, onButtonPress }) => {
+	const title = item.title || 'N/A';
+	const description = item.description || 'N/A';
 	const editItem = () => {
-		router.push({
-			pathname: '/profile/companies/[id]/services/[itemId]/update',
-			params: {
-				id: 12,
-				itemId: 34,
-			},
-		});
+		if (onButtonPress) {
+			onButtonPress();
+		}
 	};
 	return (
 		<View style={{ ...styles.staticCardWrapper, display: 'flex', flexDirection: 'row', flexWrap: 'nowrap' }}>

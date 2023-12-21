@@ -1,14 +1,14 @@
 import { useRouter } from 'expo-router';
 import { SafeAreaView, Text, View, TextInput, ScrollView } from 'react-native';
-import { Container, Column, AppButton, Spacers } from '../../../../../../components';
-import styles from '../../../../../../styles';
+import { Container, Column, AppButton, Spacers } from '../../../../../../../../../components';
+import styles from '../../../../../../../../../styles';
 import React from 'react';
 
 import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-const CreateCertificate = () => {
+const UpdateCertificate = () => {
 	const router = useRouter();
 	const schema = yup.object().shape({
 		title: yup.boolean().required('This field is required'),
@@ -48,6 +48,8 @@ const CreateCertificate = () => {
 							<Spacers />
 
 							<AppButton label="Save" type="primary" onPress={handleSubmit(onSubmit)} />
+							<Spacers />
+							<AppButton label="Delete" type="danger" onPress={() => console.log('onDelete')} />
 						</View>
 					</Column>
 				</Container>
@@ -56,4 +58,4 @@ const CreateCertificate = () => {
 	);
 };
 
-export default CreateCertificate;
+export default UpdateCertificate;

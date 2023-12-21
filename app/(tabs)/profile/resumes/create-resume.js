@@ -72,7 +72,6 @@ const CreateResume = () => {
 		requestParams.city = data?.city || null;
 		requestParams.state = data?.state || null;
 		requestParams.country = data?.country || null;
-		console.log(requestParams);
 		try {
 			const token = await authService.getBearerToken();
 			const response = await axios.post(
@@ -85,7 +84,7 @@ const CreateResume = () => {
 				}
 			);
 			if (response && response.status == 200 && response.data.resume) {
-				router.push({
+				router.replace({
 					pathname: '/resumes/[id]/update-resume',
 					params: {
 						id: response.data.resume.id,

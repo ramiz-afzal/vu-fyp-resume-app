@@ -22,10 +22,10 @@ const LoginForm = () => {
 	} = useForm({
 		resolver: yupResolver(schema),
 	});
-	const onSubmit = ({ email, password }) => {
-		let loginStatus = authService.setLogin(email, password);
+	const onSubmit = async ({ email, password }) => {
+		let loginStatus = await authService.setLogin(email, password);
 		if (loginStatus) {
-			router.replace('/home');
+			router.replace(`/profile`);
 		}
 	};
 

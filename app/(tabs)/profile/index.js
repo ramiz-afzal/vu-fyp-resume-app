@@ -142,7 +142,13 @@ export default () => {
 	let myCompanyURL = companyExists ? `/profile/companies/${companyId}/update-company` : '/profile/companies/create-company';
 	return (
 		<SafeAreaView style={styles.screen}>
-			{[loginCheck].includes(false) ? (
+			<Text>loginCheck: {JSON.stringify(loginCheck)}</Text>
+			<Text>resumeCheck: {JSON.stringify(resumeCheck)}</Text>
+			<Text>companyCheck: {JSON.stringify(companyCheck)}</Text>
+			<Text>loginStatus: {JSON.stringify(loginStatus)}</Text>
+			<Text>resumeExists: {JSON.stringify(resumeExists)}</Text>
+			<Text>companyExists: {JSON.stringify(companyExists)}</Text>
+			{loginCheck == false ? (
 				<ActivityIndicator size="large" color={COLORS.accent} />
 			) : (
 				<Container>
