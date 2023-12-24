@@ -31,12 +31,13 @@ export default () => {
 		return hasRoleId;
 	};
 
+	async function doLoginCheck() {
+		let status = await authService.isLoggedIn();
+		setLoginCheck(true);
+		setLoginStatus(status);
+	}
+
 	useEffect(() => {
-		async function doLoginCheck() {
-			let status = await authService.isLoggedIn();
-			setLoginCheck(true);
-			setLoginStatus(status);
-		}
 		if (loginCheck == false) {
 			doLoginCheck();
 		}

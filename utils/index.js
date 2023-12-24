@@ -22,3 +22,20 @@ export const dateFormat = (dateString) => {
 	}
 	return '';
 };
+export const getResumeFullName = (resume) => {
+	let resumeFullName = '';
+	let firstName = '';
+	let lastName = '';
+	if (resume && resume.meta) {
+		resume.meta.forEach((item) => {
+			if (item.key == 'first_name') {
+				firstName = item.value;
+			} else if (item.key == 'last_name') {
+				lastName = item.value;
+			}
+		});
+	}
+
+	resumeFullName = firstName && lastName ? `${firstName} ${lastName}` : firstName ? firstName : '';
+	return resumeFullName;
+};

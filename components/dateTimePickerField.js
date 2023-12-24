@@ -15,7 +15,7 @@ const DateTimePickerField = ({ onChange, onBlur, value, display = 'default', mod
 			setDate(dateFormat(value));
 			setDatePickerValue(valueDate);
 		}
-	}, []);
+	}, [value]);
 
 	const showDatePicker = () => {
 		setVisible(true);

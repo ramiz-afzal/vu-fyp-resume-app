@@ -1,6 +1,6 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { SafeAreaView, Text, View, TextInput, ScrollView, ActivityIndicator, Alert } from 'react-native';
-import { Container, Column, AppButton, Spacers, EducationEditCardFull } from '../../../../../../../components';
+import { Container, Column, AppButton, Spacers, EmployeeEditCardFull } from '../../../../../../../components';
 import styles from '../../../../../../../styles';
 import React, { useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
@@ -169,7 +169,7 @@ const UpdateDepartment = () => {
 								<Spacers height={30} />
 								<Text style={styles.heading}>Employees</Text>
 								<Spacers />
-								{department.employee && department.employee.length ? department.employee.map((item, index) => <EducationEditCardFull item={item} key={index} onButtonPress={() => editEmployee(item.id)} />) : <Text style={{ paddingBottom: 20 }}>No Employees have been added yet</Text>}
+								{department.employee && department.employee.length ? department.employee.map((item, index) => <EmployeeEditCardFull item={item} key={index} onButtonPress={() => editEmployee(item.id)} />) : <Text style={{ paddingBottom: 20 }}>No Employees have been added yet</Text>}
 								<AppButton label="Add New" onPress={addEmployee} />
 								<Spacers />
 								<Spacers height={50} />
