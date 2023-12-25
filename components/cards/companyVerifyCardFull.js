@@ -2,19 +2,14 @@ import { Text, View } from 'react-native';
 import { IconButton, Spacers } from '../../components';
 import styles from '../../styles';
 import { ICONS } from '../../constants';
-import { useRouter } from 'expo-router';
 
-const CompanyVerifyCardFull = (item) => {
-	const router = useRouter();
-	const title = item.title || 'Syndior PVT LTD';
-	const description = item.description || 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam, reprehenderit.';
+const CompanyVerifyCardFull = ({ item, onButtonPress }) => {
+	const title = item?.title || 'N/A';
+	const description = item?.description || 'N/A';
 	const editItem = () => {
-		router.push({
-			pathname: '/profile/company-verification/[itemId]',
-			params: {
-				itemId: 34,
-			},
-		});
+		if (onButtonPress) {
+			onButtonPress();
+		}
 	};
 	return (
 		<View style={{ ...styles.staticCardWrapper, display: 'flex', flexDirection: 'row', flexWrap: 'nowrap' }}>
@@ -23,9 +18,11 @@ const CompanyVerifyCardFull = (item) => {
 					{title}
 				</Text>
 				<Spacers height={5} />
-				<Text numberOfLines={2} style={styles.text}>
-					{description}
-				</Text>
+				{description ? (
+					<Text numberOfLines={2} style={styles.text}>
+						{description}
+					</Text>
+				) : null}
 			</View>
 			<View style={{ flexGrow: 1, flexShrink: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
 				<IconButton iconUrl={ICONS.edit} onPress={editItem} />

@@ -1,42 +1,110 @@
-import { useRouter } from 'expo-router';
-import { SafeAreaView, Text, View, TextInput, ScrollView } from 'react-native';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { SafeAreaView, Text, View, ActivityIndicator, ScrollView } from 'react-native';
 import { Container, Column, AppButton, Spacers } from '../../../../../components';
 import styles from '../../../../../styles';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import authService from '../../../../../services/auth';
+import axios from '../../../../../services/axios';
+import { COLORS } from '../../../../../constants';
 
 const VerifyCompany = () => {
-	const companyTitle = 'Syndior PVT LTD';
-	const description =
-		'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos id pariatur nostrum nemo ab repellat inventore quae, officia, officiis nisi, quo nam exercitationem. Rerum praesentium aperiam reprehenderit eius. Eius nulla soluta fugit in iste similique repudiandae neque illum sint qui, magnam officiis quae labore. Obcaecati itaque architecto assumenda totam deserunt quis voluptatibus necessitatibus voluptatem ea facilis deleniti voluptatum perferendis id laborum sapiente velit quam optio ex blanditiis enim ipsa, consequatur, ducimus porro. Iusto necessitatibus quis ab quasi at consectetur unde voluptas magni ullam! Molestias maiores incidunt eos, ratione consequuntur minus voluptas culpa nesciunt sint inventore quaerat itaque, doloremque perspiciatis deleniti!';
-	const onSubmit = () => {
-		console.log('onSubmit');
+	const router = useRouter();
+	const params = useLocalSearchParams();
+	const [company, setCompany] = useState({});
+	const [companyLoaded, setCompanyLoaded] = useState(false);
+	const [title, setTitle] = useState('');
+	const [description, setDescription] = useState('');
+
+	async function getCompany() {
+		const companyId = params.itemId;
+		if (!companyId) {
+			setCompanyLoaded(true);
+			return;
+		}
+		try {
+			const token = await authService.getBearerToken();
+			const response = await axios.get(`/company/${companyId}`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			});
+			if (response && response.status == 200 && response.data.company) {
+				setCompany(response.data.company);
+				setCompanyLoaded(true);
+			}
+		} catch (error) {
+			console.log(error);
+			console.log(error.response.data);
+			alert('Something went wrong.');
+		}
+	}
+
+	useEffect(() => {
+		getCompany();
+	}, []);
+
+	useEffect(() => {
+		setTitle(company?.title);
+		setDescription(company?.description);
+	}, [company]);
+
+	const onSubmit = async () => {
+		try {
+			const companyId = params.itemId;
+			if (!companyId) {
+				alert('Something went wrong');
+				return;
+			}
+			const token = await authService.getBearerToken();
+			const response = await axios.patch(
+				`/company/${companyId}`,
+				{ body: { isVerified: 'true' } },
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				}
+			);
+			if (response && response.status == 200 && response.data.company) {
+				alert('Company Verified!');
+				router.push(`/profile`);
+			}
+		} catch (error) {
+			console.log(error);
+			console.log(error.response.data);
+			alert('Something went wrong.');
+		}
 	};
 	return (
 		<SafeAreaView style={styles.screen}>
 			<ScrollView>
-				<Container>
-					<Column>
-						<View>
-							<Text style={styles.cardSubTitle}>Company Name</Text>
-							<Spacers height={5} />
-							<View style={styles.textInputField}>
-								<Text>{companyTitle}</Text>
+				{companyLoaded ? (
+					<Container>
+						<Column>
+							<View>
+								<Text style={styles.cardSubTitle}>Company Name</Text>
+								<Spacers height={5} />
+								<View style={styles.textInputField}>
+									<Text>{title}</Text>
+								</View>
+								<Spacers />
 							</View>
-							<Spacers />
-						</View>
 
-						<View>
-							<Text style={styles.cardSubTitle}>Company Details</Text>
-							<Spacers height={5} />
-							<View style={styles.textInputField}>
-								<Text>{description}</Text>
+							<View>
+								<Text style={styles.cardSubTitle}>Company Details</Text>
+								<Spacers height={5} />
+								<View style={styles.textInputField}>
+									<Text>{description}</Text>
+								</View>
+								<Spacers />
 							</View>
-							<Spacers />
-						</View>
 
-						<AppButton label="Approve" type="primary" onPress={onSubmit} />
-					</Column>
-				</Container>
+							<AppButton label="Approve" type="primary" onPress={onSubmit} />
+						</Column>
+					</Container>
+				) : (
+					<ActivityIndicator color={COLORS.accent} size={'large'} />
+				)}
 			</ScrollView>
 		</SafeAreaView>
 	);
