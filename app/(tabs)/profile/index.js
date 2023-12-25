@@ -153,13 +153,7 @@ export default () => {
 	let myCompanyURL = companyExists ? `/profile/companies/${companyId}/update-company` : '/profile/companies/create-company';
 	return (
 		<SafeAreaView style={styles.screen}>
-			<ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
-				<Text>loginCheck: {JSON.stringify(loginCheck)}</Text>
-				<Text>resumeCheck: {JSON.stringify(resumeCheck)}</Text>
-				<Text>companyCheck: {JSON.stringify(companyCheck)}</Text>
-				<Text>loginStatus: {JSON.stringify(loginStatus)}</Text>
-				<Text>resumeExists: {JSON.stringify(resumeExists)}</Text>
-				<Text>companyExists: {JSON.stringify(companyExists)}</Text>
+			<ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />} contentContainerStyle={{ height: '100%', display: 'flex', justifyContent: 'center' }}>
 				{loginCheck == false ? (
 					<ActivityIndicator size="large" color={COLORS.accent} />
 				) : (

@@ -6,8 +6,11 @@ import React from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useRouter } from 'expo-router';
+import axios from '../../../services/axios';
 
 const ChangePasswordForm = () => {
+	const router = useRouter();
 	const schema = yup.object().shape({
 		email: yup.string().email().required(),
 	});
@@ -18,7 +21,21 @@ const ChangePasswordForm = () => {
 	} = useForm({
 		resolver: yupResolver(schema),
 	});
-	const onSubmit = (data) => console.log(data);
+	const onSubmit = async (data) => {
+		let requestParams = {};
+		requestParams.email = data?.email || null;
+		try {
+			const response = await axios.post('/password/request', { ...requestParams });
+			console.log(response);
+			if (response && response.status == 200) {
+				router.replace({ pathname: '/profile/verify-token' });
+			}
+		} catch (error) {
+			console.log(error);
+			console.log(error?.response?.data);
+			alert('Something went wrong.');
+		}
+	};
 
 	return (
 		<SafeAreaView style={styles.screen}>
