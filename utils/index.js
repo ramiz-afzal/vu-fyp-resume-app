@@ -39,3 +39,14 @@ export const getResumeFullName = (resume) => {
 	resumeFullName = firstName && lastName ? `${firstName} ${lastName}` : firstName ? firstName : '';
 	return resumeFullName;
 };
+export const getResumeMeta = (resume, metaKey) => {
+	let metaValue = '';
+	if (metaKey && resume && resume.meta) {
+		resume.meta.forEach((item) => {
+			if (item.key == metaKey) {
+				metaValue = item.value;
+			}
+		});
+	}
+	return metaValue;
+};

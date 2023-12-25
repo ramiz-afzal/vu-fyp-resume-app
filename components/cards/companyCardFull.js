@@ -1,16 +1,15 @@
 import { Text, View, Image, TouchableOpacity } from 'react-native';
 import styles from '../../styles';
 import { companyImageSource } from '../../utils';
-import { useRouter } from 'expo-router';
 
-const CompanyCardFull = (item) => {
-	const companyTitle = item.companyTitle || 'N/A';
-	const companyImage = item.companyImage || null;
-	const description = item.description || 'No description provided';
-
-	const router = useRouter();
-	const onPress = () => {
-		router.push('/companies/1');
+const CompanyCardFull = ({ item, onPress }) => {
+	const companyTitle = item?.title || 'N/A';
+	const description = item?.description || 'N/A';
+	const companyImage = item?.image ? item?.image?.path : null;
+	const onItemPress = () => {
+		if (onPress) {
+			onPress();
+		}
 	};
 	return (
 		<TouchableOpacity style={styles.companyCardFullWrapper} onPress={onPress}>

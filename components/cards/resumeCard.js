@@ -2,15 +2,19 @@ import { Text, View, Image, TouchableOpacity } from 'react-native';
 import styles from '../../styles';
 import { profileImageSource } from '../../utils';
 import { Spacers } from '../../components';
-import { useRouter } from 'expo-router';
+import { getResumeFullName, getResumeMeta } from '../../utils';
 
-const ResumeCard = ({ fullName = 'N/A', designation = 'N/A', profileImage = null }) => {
-	const router = useRouter();
-	const onPress = () => {
-		router.push('/resumes/1');
+const ResumeCard = ({ item, onPress }) => {
+	const fullName = getResumeFullName(item) || 'N/A';
+	const designation = getResumeMeta(item, 'designation') || 'N/A';
+	const profileImage = item?.image ? item?.image?.path : null;
+	const onItemPress = () => {
+		if (onPress) {
+			onPress();
+		}
 	};
 	return (
-		<TouchableOpacity style={styles.resumeCardWrapper} onPress={onPress}>
+		<TouchableOpacity style={styles.resumeCardWrapper} onPress={onItemPress}>
 			<View>
 				<Image source={profileImageSource(profileImage)} resizeMode="contain" style={styles.cardImage} />
 			</View>

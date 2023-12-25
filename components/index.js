@@ -28,6 +28,9 @@ import ServiceEditCardFull from './cards/serviceEditCardFull';
 import EmployeeEditCardFull from './cards/employeeEditCardFull';
 import ExperienceVerifyCardFull from './cards/experienceVerifyCardFull';
 import CompanyVerifyCardFull from './cards/companyVerifyCardFull';
+import ServiceCard from './cards/serviceCard';
+import ServiceCardFull from './cards/serviceCardFull';
+import EmployeeCardFull from './cards/employeeCardFull';
 import ImagePicker from './imagePicker';
 
 export {
@@ -62,4 +65,7 @@ export {
 	ExperienceVerifyCardFull,
 	CompanyVerifyCardFull,
 	ImagePicker,
+	ServiceCard,
+	ServiceCardFull,
+	EmployeeCardFull,
 };

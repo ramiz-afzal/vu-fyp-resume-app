@@ -133,7 +133,7 @@ const CreateEmployee = () => {
 		requestParams.employmentPosition = data?.employmentPosition || null;
 
 		if (requestParams.type == 'illiterate') {
-			let illiterateEmployee = {};
+			let illiterateEmployeeArgs = {};
 			illiterateEmployeeArgs.firstName = data?.firstName || null;
 			illiterateEmployeeArgs.lastName = data?.lastName || null;
 			illiterateEmployeeArgs.designation = data?.designation || null;

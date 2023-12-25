@@ -1,7 +1,6 @@
 import { Stack, useRouter } from 'expo-router';
 import { SafeAreaView, FlatList, ActivityIndicator, Text } from 'react-native';
 import { Container, Column, CompanyVerifyCardFull } from '../../../../components';
-import { getValue } from '../../../../utils/secureStorage';
 import authService from '../../../../services/auth';
 import axios from '../../../../services/axios';
 import styles from '../../../../styles';

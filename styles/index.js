@@ -157,6 +157,19 @@ const styles = StyleSheet.create({
 		borderRadius: SIZES.small,
 		...SHADOWS.medium,
 		marginBottom: SIZES.small,
+		width: 100 + SIZES.small * 2,
+		maxWidth: 100 + SIZES.small * 2,
+	},
+	serviceCardWrapper: {
+		display: 'flex',
+		flexDirection: 'column',
+		padding: SIZES.small,
+		backgroundColor: COLORS.white,
+		borderRadius: SIZES.small,
+		...SHADOWS.medium,
+		marginBottom: SIZES.small,
+		width: 150 + SIZES.small * 2,
+		maxWidth: 150 + SIZES.small * 2,
 	},
 	companyCardWrapper: {
 		display: 'flex',
@@ -166,6 +179,8 @@ const styles = StyleSheet.create({
 		borderRadius: SIZES.small,
 		...SHADOWS.medium,
 		marginBottom: SIZES.small,
+		width: 100 + SIZES.small * 2,
+		maxWidth: 100 + SIZES.small * 2,
 	},
 	companyCardFullWrapper: {
 		display: 'flex',
@@ -316,6 +331,24 @@ const styles = StyleSheet.create({
 		fontSize: SIZES.medium,
 		textAlign: 'left',
 	},
+	sortFilterWrapper: {
+		marginTop: SIZES.medium,
+		marginBottom: SIZES.medium,
+		width: '100%',
+		maxWidth: '100%',
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'space-evenly',
+	},
+	sortFilterLink: (isActive = false) => ({
+		fontFamily: FONT.regular,
+		fontSize: SIZES.medium,
+		color: isActive ? COLORS.black : COLORS.coolGray,
+		backgroundColor: COLORS.errorLight,
+		textAlign: 'center',
+		textDecorationLine: isActive ? 'underline' : 'none',
+	}),
 });
 
 export default styles;

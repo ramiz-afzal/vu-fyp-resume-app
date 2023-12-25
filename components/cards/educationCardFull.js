@@ -1,13 +1,14 @@
 import { Text, View } from 'react-native';
 import { Spacers } from '../../components';
 import styles from '../../styles';
+import { dateFormat } from '../../utils';
 
-const EducationCardFull = (item) => {
-	const degreeTitle = item.degreeTitle || 'Degree Title';
-	const instituteTitle = item.instituteTitle || 'School or Collage';
-	const description = item.description || 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam, reprehenderit.';
-	const startDate = item.startDate || 'Jan, 2023';
-	const endDate = item.endDate || 'Jan, 2023';
+const EducationCardFull = ({ item }) => {
+	const degreeTitle = item.degree || 'N/A';
+	const instituteTitle = item.institute || 'N/A';
+	const description = item.description || 'N/A';
+	const startDate = dateFormat(item.startDate) || null;
+	const endDate = dateFormat(item.endDate) || null;
 
 	return (
 		<View style={styles.staticCardWrapper}>

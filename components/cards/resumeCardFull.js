@@ -2,19 +2,20 @@ import { Text, View, Image, TouchableOpacity } from 'react-native';
 import styles from '../../styles';
 import { profileImageSource } from '../../utils';
 import { Spacers } from '../../components';
-import { useRouter } from 'expo-router';
+import { getResumeFullName, getResumeMeta } from '../../utils';
 
-const CompanyCardFull = (item) => {
-	const fullName = item.fullName || 'N/A';
-	const profileImage = item.profileImage || null;
-	const designation = item.designation || 'No designation provided';
-	const description = item.description || 'No description provided';
-	const router = useRouter();
-	const onPress = () => {
-		router.push('/resumes/1');
+const ResumeCardFull = ({ item, onPress }) => {
+	const fullName = getResumeFullName(item) || 'N/A';
+	const designation = getResumeMeta(item, 'designation') || 'N/A';
+	const description = getResumeMeta(item, 'biography') || 'N/A';
+	const profileImage = item?.image ? item?.image?.path : null;
+	const onItemPress = () => {
+		if (onPress) {
+			onPress();
+		}
 	};
 	return (
-		<TouchableOpacity style={styles.companyCardFullWrapper} onPress={onPress}>
+		<TouchableOpacity style={styles.companyCardFullWrapper} onPress={onItemPress}>
 			<View style={styles.cardFullImageWrapper}>
 				<Image source={profileImageSource(profileImage)} resizeMode="contain" style={styles.cardImage} />
 			</View>
@@ -40,4 +41,4 @@ const CompanyCardFull = (item) => {
 	);
 };
 
-export default CompanyCardFull;
+export default ResumeCardFull;
