@@ -114,6 +114,7 @@ const authService = {
 			if (response && response.status == 200) {
 				await setValue('accessToken', '');
 				await setValue('refreshToken', '');
+				await setValue('companyId', '');
 				await setValue('user', '');
 				return true;
 			}

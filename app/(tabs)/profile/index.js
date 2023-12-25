@@ -3,7 +3,7 @@ import { Container, Column, AppButton, Spacers } from '../../../components';
 import styles from '../../../styles';
 import { ICONS, COLORS } from '../../../constants';
 import { useRouter } from 'expo-router';
-import { getValue } from '../../../utils/secureStorage';
+import { getValue, setValue } from '../../../utils/secureStorage';
 import authService from '../../../services/auth';
 import axios from '../../../services/axios';
 import { useState, useEffect } from 'react';
@@ -113,6 +113,7 @@ export default () => {
 							if (response && response.data.company && response.data.company.length) {
 								const company = response.data.company[0];
 								setCompanyId(company.id);
+								setValue('companyId', JSON.stringify(company.id));
 								setCompanyExists(true);
 							}
 						} catch (error) {

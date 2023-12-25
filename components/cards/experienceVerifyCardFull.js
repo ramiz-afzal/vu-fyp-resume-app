@@ -2,21 +2,18 @@ import { Text, View } from 'react-native';
 import { IconButton, Spacers } from '../../components';
 import styles from '../../styles';
 import { ICONS } from '../../constants';
-import { useRouter } from 'expo-router';
+import { dateFormat, getResumeFullName } from '../../utils';
 
-const ExperienceVerifyCardFull = (item) => {
-	const router = useRouter();
-	const fullName = item.fullName || 'John Doe';
-	const designation = item.designation || 'Developer';
-	const startDate = item.startDate || 'Jan, 2023';
-	const endDate = item.endDate || 'Jan, 2023';
+const ExperienceVerifyCardFull = ({ item, onButtonPress }) => {
+	const fullName = getResumeFullName(item.resume) || 'N/A';
+	const designation = item.designation || 'N/A';
+	const startDate = dateFormat(item.startDate) || null;
+	const endDate = dateFormat(item.endDate) || null;
+	const description = item.description || null;
 	const editItem = () => {
-		router.push({
-			pathname: '/profile/experience-verification/[itemId]',
-			params: {
-				itemId: 34,
-			},
-		});
+		if (onButtonPress) {
+			onButtonPress();
+		}
 	};
 	return (
 		<View style={{ ...styles.staticCardWrapper, display: 'flex', flexDirection: 'row', flexWrap: 'nowrap' }}>
@@ -31,16 +28,21 @@ const ExperienceVerifyCardFull = (item) => {
 				<Spacers height={5} />
 				{startDate && endDate ? (
 					<>
-						<Text style={styles.text}>
+						<Text style={styles.cardSubTitle}>
 							From: {startDate} To: {endDate}
 						</Text>
 						<Spacers height={5} />
 					</>
 				) : startDate ? (
 					<>
-						<Text style={styles.text}>From: {startDate} Till date</Text>
+						<Text style={styles.cardSubTitle}>From: {startDate} Till date</Text>
 						<Spacers height={5} />
 					</>
+				) : null}
+				{description ? (
+					<Text numberOfLines={2} style={styles.text}>
+						{description}
+					</Text>
 				) : null}
 			</View>
 			<View style={{ flexGrow: 1, flexShrink: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
